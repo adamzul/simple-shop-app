@@ -5,7 +5,7 @@
   --mainBlack:#232528;
   --mainYellow:#ffa400;
 }
-
+ 
 body{
   font-family: 'Roboto', sans-serif !important;
   background: var(--mainwhite) !important;
