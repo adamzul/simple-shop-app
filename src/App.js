@@ -12,6 +12,7 @@ import Cart from './components/Cart';
 import Default from './components/Default';
 import "bootstrap/dist/css/bootstrap.min.css";
 
+
 function App() {
   return (
     <React.Fragment>
