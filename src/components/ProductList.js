@@ -3,6 +3,8 @@ import Title from './Title';
 import {storeProducts} from '../data';
 import {ProductConsumer} from '../context';
 
+import Product from './Product';
+
 export default class ProductList extends Component {
 	constructor(props){
 		super(props);
@@ -18,8 +20,12 @@ export default class ProductList extends Component {
 						<Title name="our" title="product" />
 						<div className="row">
 							<ProductConsumer>
-								{(hello)=>{
-									return (<h1>{hello}</h1>);
+								{(value)=>{
+									console.log(value);
+									return value.products.map((product) => {
+										return (<Product key={product.id} product={product} />);
+									});
+									// return (<h1>{value}</h1>);
 								}}
 							</ProductConsumer>
 						</div>
