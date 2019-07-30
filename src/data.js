@@ -1,7 +1,7 @@
 export const storeProducts = [
 	{
 		id: 1,
-		title: 'samsung',
+		title: 'nokia',
 		img: 'img/samsung01.jpg',
 		price: "100",
 		company: "Samsung",

@@ -4,17 +4,40 @@ import {storeProducts, detailProduct} from './data';
 const ProductContext = React.createContext();
 
 class ProductProvider extends Component {
+	constructor(props){
+		super(props);
+		this.getItem = this.getItem.bind(this);
+		this.handleDetail = this.handleDetail.bind(this);
+		this.addToCart = this.addToCart.bind(this);
+	}
 	state = {
 		products: storeProducts,
-		detailProduct: detailProduct
+		detailProduct: detailProduct,
+		cart: []
 	}
 
-	handleDetail(){
-		console.log("detail");
+	getItem(id){
+		const products = this.state.products.find(item => item.id === id);
+		return products;
 	}
 
-	addToCart(){
-		console.log("add to cart");
+	handleDetail(id){
+		const products = this.getItem(id);
+		this.setState({
+			detailProduct: products
+		})
+	}
+
+	addToCart(id){
+		let tempProducts = [...this.state.products];
+		const index = tempProducts.indexOf(this.getItem(id));
+		const product = tempProducts[index];
+		product.inCart = true;
+		product.count = 1;
+		product.total = product.price;
+		this.setState({
+			products: tempProducts, cart: [...this.state.cart, product]
+		}, ()=> console.log(this.state))
 	}
 
 	render() {

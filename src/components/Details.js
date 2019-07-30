@@ -40,6 +40,7 @@ export default class Details extends Component {
 									{info}
 								</p>
 								<div>
+									
 									<Link to="/">
 										<ButtonContainer >back to product</ButtonContainer>
 									</Link>
