@@ -23,7 +23,7 @@ export default class CartItem extends Component {
                     </div>
                 </div>
                 <div className="col-10 mx-auto col-lg-2">
-                    <div className="cart-icon" onClick={removeItem(id)}>
+                    <div className="cart-icon" onClick={() => removeItem(id)}>
                         <i className="fas fa-trash"></i>
                     </div>
                 </div>
