@@ -4,13 +4,12 @@ import {storeProducts} from '../data';
 import {ProductConsumer} from '../context';
 
 import Product from './Product';
+import { connect } from 'react-redux';
 
-export default class ProductList extends Component {
+class ProductList extends Component {
 	constructor(props){
 		super(props);
-		this.state = {
-			products: storeProducts
-		};
+		
 	}
 	render() {
 		return (
@@ -21,11 +20,9 @@ export default class ProductList extends Component {
 						<div className="row">
 							<ProductConsumer>
 								{(value)=>{
-									console.log(value);
-									return value.products.map((product) => {
+									return this.props.products.map((product) => {
 										return (<Product key={product.id} product={product} />);
 									});
-									// return (<h1>{value}</h1>);
 								}}
 							</ProductConsumer>
 						</div>
@@ -35,3 +32,7 @@ export default class ProductList extends Component {
 		);
 	}
 }
+const mapStateToProps = state => ({
+	products: state.product.products
+});
+export default connect(mapStateToProps, null)(ProductList);

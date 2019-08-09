@@ -12,21 +12,17 @@ import Cart from './components/Cart';
 import Default from './components/Default';
 import Modal from './components/Modal';
 
+import {Provider, connect} from 'react-redux';
+import store from "./store";
+import {getProducts} from "./actions/productAction";
+import Wrapper from './components/Wrapper';
 
 function App() {
-  return (
-    <React.Fragment>
-    	<Navbar />
-    	<Switch>
-    		<Route exact path="/" component={ProductList} />
-    		<Route path="/details" component={Details} />
-    		<Route path="/cart" component={Cart} />
-    		<Route component={Default} />
-    	</Switch>
-		<Modal />
-    </React.Fragment>
-
-  );
+ 	return (
+		<Provider store={store}>
+			<Wrapper />
+		</Provider>
+	);
 }
 
 export default App;
