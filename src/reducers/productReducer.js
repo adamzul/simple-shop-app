@@ -1,7 +1,8 @@
-import { GET_PRODUCTS } from "../actions/types";
+import { GET_PRODUCTS, SET_ACTIVE_PRODUCT } from "../actions/types";
 
 const initialState = {
-    products: []
+    products: [],
+    activeProduct: {}
 }
 
 export default function(state = initialState, action){
@@ -12,6 +13,13 @@ export default function(state = initialState, action){
                 ...state,
                 products: action.payload.products
             }
+        case SET_ACTIVE_PRODUCT: {
+            console.log(action.payload.activeProduct)
+            return {
+                ...state,
+                activeProduct: action.payload.activeProduct
+            }
+        }
         default:
             return state;
     }

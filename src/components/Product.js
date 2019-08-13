@@ -4,7 +4,19 @@ import {Link} from 'react-router-dom';
 import {ProductConsumer} from '../context';
 import PropTypes from 'prop-types';
 
-export default class Product extends Component {
+
+import {connect} from 'react-redux';
+import {setActiveProduct} from '../actions/productAction';
+import {addToCart} from '../actions/cartAction';
+import {openModal} from '../actions/modalAction';
+
+class Product extends Component {
+	openModal = (product) =>{
+		this.props.openModal(product);
+		// this.setState({
+		// 	modalProduct: this.props.product, modalOpen: true
+		// });
+	}
 	render() {
 		const {id, title, img, price, inCart} = this.props.product;
 		return (
@@ -12,13 +24,15 @@ export default class Product extends Component {
 				<div className="card">
 					<ProductConsumer>
 						{value=>(
-							<div className="img-container p-5" onClick={() => value.handleDetail(id)}>
-								<Link to="/details">
+							<div className="img-container p-5" onClick={() => this.props.setActiveProduct(id)}>
+								<Link to={"/details/" + id} params={{id:id}}>
 									<img src={img} alt="product" className="card-img-top" />
 								</Link>
 								<button className="cart-btn" disabled={inCart ? true : false} onClick={() => {
-									value.addToCart(id);
-									value.openModal(id);
+									// value.addToCart(id);
+									// value.openModal(id);
+									this.props.addToCart(id);
+									this.openModal(this.props.product)
 								}}>
 								{inCart ? (
 									<p className="text-capitalize mb-0" disabled>
@@ -41,6 +55,12 @@ export default class Product extends Component {
 		);
 	}
 }
+
+const mapStateToProps = state => ({
+	products: state.product.products,
+	cart: state.cart.cart
+});
+export default connect(mapStateToProps, {setActiveProduct, addToCart, openModal})(Product);
 
 Product.propTypes = {
 	product: PropTypes.shape({
@@ -105,3 +125,4 @@ const ProductWrapper = styled.div`
 		cursor: pointer;
 	}
 `
+

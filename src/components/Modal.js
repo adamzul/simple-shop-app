@@ -3,16 +3,17 @@ import styled from 'styled-components';
 import {ProductConsumer} from '../context';
 import {Link} from 'react-router-dom';
 import { ButtonContainer } from './Button';
+import { connect } from 'react-redux';
 
-export default class Modal extends Component {
+class Modal extends Component {
     render() {
         return (
             <ProductConsumer>
                 {(value) => {
                     const {modalProduct, modalOpen} = value;
                     const {openModal, closeModal} = value;
-                    const {img, price, title} = value.modalProduct;
-                    if(!modalOpen){
+                    const {img, price, title} = this.props.product;
+                    if(!this.props.open){
                         return null;
                     }
                     else{
@@ -45,6 +46,12 @@ export default class Modal extends Component {
         )
     }
 }
+const mapStateToProps = state => ({
+	product: state.modal.product,
+	open: state.modal.open
+});
+
+export default connect(mapStateToProps, null)(Modal);
 
 const ModalContainer = styled.div`
 position: fixed;
