@@ -5,13 +5,15 @@ import {Link} from 'react-router-dom';
 import { ButtonContainer } from './Button';
 import { connect } from 'react-redux';
 
+
+import {closeModal} from '../actions/modalAction';
 class Modal extends Component {
     render() {
         return (
-            <ProductConsumer>
-                {(value) => {
-                    const {modalProduct, modalOpen} = value;
-                    const {openModal, closeModal} = value;
+            <React.Fragment>
+                {(() => {
+                    // const {modalProduct, modalOpen} = value;
+                    // const {openModal, closeModal} = value;
                     const {img, price, title} = this.props.product;
                     if(!this.props.open){
                         return null;
@@ -27,12 +29,12 @@ class Modal extends Component {
                                         <h5>{title}</h5>
                                         <h5 className="text-muted">price : $ {price}</h5>
                                         <Link to="/" >
-                                            <ButtonContainer onClick={() => closeModal()}>
+                                            <ButtonContainer onClick={() => this.props.closeModal()}>
                                                 store
                                             </ButtonContainer>
                                         </Link>
                                         <Link to="/cart">
-                                            <ButtonContainer cart onClick={() => closeModal()}>
+                                            <ButtonContainer cart onClick={() => this.props.closeModal()}>
                                                 go to cart
                                             </ButtonContainer>
                                         </Link>
@@ -41,8 +43,8 @@ class Modal extends Component {
                             </div>
                         </ModalContainer>);
                     }
-                }}
-            </ProductConsumer>
+                })()}
+            </React.Fragment>
         )
     }
 }
@@ -51,7 +53,7 @@ const mapStateToProps = state => ({
 	open: state.modal.open
 });
 
-export default connect(mapStateToProps, null)(Modal);
+export default connect(mapStateToProps, {closeModal})(Modal);
 
 const ModalContainer = styled.div`
 position: fixed;

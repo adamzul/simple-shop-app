@@ -6,6 +6,7 @@ import {ButtonContainer} from './Button';
 
 import {connect} from 'react-redux';
 import {storeProducts} from '../data';
+import { addToCart } from "../actions/cartAction";
 
 class Details extends Component {
 	constructor(props){
@@ -59,7 +60,7 @@ class Details extends Component {
 								<ButtonContainer >back to product</ButtonContainer>
 							</Link>
 							<ButtonContainer cart disabled={inCart} onClick={() => {
-									
+									this.props.addToCart(id)
 									// value.addToCart(id);
 									// value.openModal(id);
 								}}>{inCart ? "in cart":"add to cart"}</ButtonContainer>
@@ -74,4 +75,4 @@ class Details extends Component {
 const mapStateToProps = state => ({
 	activeProduct: state.product.activeProduct
 });
-export default connect(mapStateToProps, null)(Details);
+export default connect(mapStateToProps, {addToCart})(Details);

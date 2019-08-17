@@ -1,4 +1,4 @@
-import { OPEN_MODAL } from "../actions/types";
+import { OPEN_MODAL, CLOSE_MODAL } from "../actions/types";
 
 const initialState = {
     open: false,
@@ -12,6 +12,11 @@ export default function(state = initialState, action){
                 ...state,
                 open: action.payload.open,
                 product: action.payload.product
+            }
+        case CLOSE_MODAL:
+            return {
+                ...state,
+                open:action.payload.open
             }
         default:
             return state

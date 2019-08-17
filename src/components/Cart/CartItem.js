@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import {increment, decrement, removeItem} from '../../actions/cartAction';
 
-export default class CartItem extends Component {
+class CartItem extends Component {
     render() {
         const {id, title, img, price, total, count} = this.props.item;
-        const {increment, decrement, removeItem} = this.props.value;
+        // const {increment, decrement, removeItem} = this.props.value;
         return (
             <div className="row my-2 text-capitalize text-center"> 
                 <div className="col-10 mx-auto col-lg-2">
@@ -17,13 +19,13 @@ export default class CartItem extends Component {
                 </div>
                 <div className="col-10 mx-auto col-lg-2 my-2 my-lg-0">
                     <div className="d-flex justify-content-center">
-                        <span className="btn btn-black mx-1" onClick={()=>{decrement(id)}}>-</span>
+                        <span className="btn btn-black mx-1" onClick={()=>{this.props.decrement(id)}}>-</span>
                         <span className="btn btn-black mx-1" >{count}</span>
-                        <span className="btn btn-black mx-1" onClick={()=>{increment(id)}}>+</span>
+                        <span className="btn btn-black mx-1" onClick={()=>{this.props.increment(id)}}>+</span>
                     </div>
                 </div>
                 <div className="col-10 mx-auto col-lg-2">
-                    <div className="cart-icon" onClick={() => removeItem(id)}>
+                    <div className="cart-icon" onClick={() => this.props.removeItem(id)}>
                         <i className="fas fa-trash"></i>
                     </div>
                 </div>
@@ -34,3 +36,5 @@ export default class CartItem extends Component {
         )
     }
 }
+
+export default connect(null, {increment, decrement, removeItem})(CartItem);
